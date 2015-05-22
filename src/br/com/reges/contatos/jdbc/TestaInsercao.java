@@ -5,12 +5,15 @@
  */
 package br.com.reges.contatos.jdbc;
 
+import br.com.reges.contatos.dao.ContatosDAO;
+import br.com.reges.contatos.modelo.Contato;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  *
@@ -18,32 +21,36 @@ import java.sql.Statement;
  */
 public class TestaInsercao {
     
+    
+ 
+
     public static void main(String[] args) throws SQLException {
         Connection connection = Database.getConnection();
-        String txtNome = "Eduardo') drop database;";
-        String txtSobrenome = "Nascimento";      
         
-        String sql = "insert into Contatos(nome, sobrenome) values ( ? , ? )";
-        PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+        Contato contato = new Contato();
+        contato.setNome("Lucas");
+        contato.setSobrenome("Nascimento");
+        contato.setCategoria("familia");
+        contato.setApelido("Lucas");
+
+        ContatosDAO contatosDao = new ContatosDAO(connection);
+        Contato contatoInserido = contatosDao.inserir(contato);
         
-        statement.setString(1, txtNome);
-        statement.setString(2, txtSobrenome);
-        
-        boolean retornoehlista = statement.execute();
-        
-        ResultSet rs = statement.getGeneratedKeys();
-        
-        while (rs.next()){
-            int novoId = rs.getInt("id");
-            System.out.println(novoId);
-        }
+        List<Contato> contatosList = contatosDao.listar();
         
         
-        System.out.println(retornoehlista);
+        System.out.println(contatoInserido);
+        System.out.println(contatosList.size());
         
-        statement.close();
+        
+        contatosDao.deleta(contatoInserido);
+        
+        contatosList = contatosDao.listar();
+        System.out.println(contatosList.size());
+        
+        
         connection.close();
-        
+
     }
-    
+
 }

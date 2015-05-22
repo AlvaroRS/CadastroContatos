@@ -12,19 +12,36 @@ import java.util.List;
  * @author lucas
  */
 public class Contato {
-    
+
+    private Integer id;
     private String nome;
     private String sobrenome;
     private String categoria;
     private String apelido;
     private String tipoContato;
     private List<Email> emails;
-    
-    public Contato(){
-        
+
+    public Integer getId() {
+        return id;
     }
-    
-    public Contato(String nome, String sobrenome, String categoria, String apelido, String tipoContato, List<Email> emails){
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTipoContato() {
+        return tipoContato;
+    }
+
+    public void setTipoContato(String tipoContato) {
+        this.tipoContato = tipoContato;
+    }
+
+    public Contato() {
+
+    }
+
+    public Contato(String nome, String sobrenome, String categoria, String apelido, String tipoContato, List<Email> emails) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.categoria = categoria;
@@ -35,10 +52,10 @@ public class Contato {
 
     @Override
     public String toString() {
-        return "Contato{" + "nome=" + nome + ", sobrenome=" + sobrenome + ", categoria=" + categoria + ", apelido=" + apelido + ", tipoContato=" + tipoContato + ", emails=" + emails + '}';
+        return "Contato{" + "id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", categoria=" + categoria + ", apelido=" + apelido + ", tipoContato=" + tipoContato + ", emails=" + emails + '}';
     }
-    
-    
+
+
 
     /**
      * @return the nome
@@ -124,8 +141,4 @@ public class Contato {
         this.emails = emails;
     }
 
-
-    
-    
-    
 }
